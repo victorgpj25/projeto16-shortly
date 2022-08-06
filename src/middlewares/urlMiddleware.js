@@ -1,5 +1,5 @@
 import { urlSchema } from "../schemas/urlSchema.js"
-import urlRepository from "../repositories/urlRepository.js"
+import {urlRepository} from "../repositories/urlRepository.js"
 
 
 export function shortenUrlMiddleware (req, res, next) {
@@ -24,7 +24,7 @@ export function getUrlByIdMiddleware (req, res, next) {
     next();
 }
 
-export function openShortUrlMiddleware (req, res, next) {
+export async function openShortUrlMiddleware (req, res, next) {
     const { shortUrl } = req.params
 
     const { rows: urlBody } = await urlRepository.openShortUrlQuery(shortUrl)
@@ -40,7 +40,7 @@ export function openShortUrlMiddleware (req, res, next) {
     next();
 }
 
-export function deleteUrlMiddleware (req, res, next) {
+export async function deleteUrlMiddleware (req, res, next) {
     const { id } = req.params
     const userId = res.locals.userId
 

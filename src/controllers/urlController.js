@@ -1,4 +1,4 @@
-import urlRepository from "../repositories/urlRepository.js"
+import {urlRepository} from "../repositories/urlRepository.js"
 import { nanoid } from "nanoid"
 
 

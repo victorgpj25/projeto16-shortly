@@ -10,7 +10,7 @@ async function shortenUrlQuery (userId, url, shortUrl) {
 
 async function getUrlByIdQuery (id) {
     return connection.query(
-        'SELECT id, url, "shortUrl" FROM urls WHERE id=$1',
+        'SELECT id, "shortUrl", url FROM urls WHERE id=$1',
         [id]
     );
 }
@@ -24,7 +24,7 @@ async function openShortUrlQuery (shortUrl) {
 
 async function addToVisitsCountQuery (shortUrl) {
     return connection.query(
-        'UPDATE url SET visits = visits + 1 WHERE "shortUrl"=$1',
+        'UPDATE url SET visitCount = visitCount + 1 WHERE "shortUrl"=$1',
         [shortUrl]
     );
 }
@@ -45,7 +45,7 @@ async function deleteUrl (id) {
 
 
 
-export const authRepository = {
+export const urlRepository = {
 	shortenUrlQuery,
     getUrlByIdQuery,
     openShortUrlQuery,

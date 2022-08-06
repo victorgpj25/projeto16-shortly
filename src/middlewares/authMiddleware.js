@@ -1,5 +1,5 @@
 import { signUpSchema, signInSchema } from "../schemas/authSchema.js"
-import authRepository from "../repositories/authRepository.js"
+import {authRepository} from "../repositories/authRepository.js"
 import jwt from "jsonwebtoken"
 
 
