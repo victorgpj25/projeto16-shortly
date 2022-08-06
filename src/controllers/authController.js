@@ -15,7 +15,7 @@ export async function signUp (req, res) {
 export async function signIn (req, res) {
     const { email, password } = req.body;
 
-    const userInArray = authRepository.checkEmailQuery(email)
+    const { rows: userInArray } = authRepository.checkEmailQuery(email)
 
     const user = userInArray[0]
 

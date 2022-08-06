@@ -8,8 +8,10 @@ async function checkEmailQuery (email) {
 }
 
 async function signUpQuery (name, email, password) {
-    'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
-    [name, email, password]
+    return connection.query(
+        'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
+        [name, email, password]
+    );
 }
 
 export const authRepository = {
