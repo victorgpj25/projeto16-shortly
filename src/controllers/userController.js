@@ -8,9 +8,9 @@ export async function getUserData (req, res) {
     const {rows: shortenedUrls} = await userRepository.getUserUrlsQuery(userId)
 
     const userDataBody = {
-        id: userData.id,
-        name: userData.name,
-        visitCount: userData.visitCount,
+        id: userData[0].id,
+        name: userData[0].name,
+        visitCount: userData[0].visitCount,
         shortenedUrls
     }
 
