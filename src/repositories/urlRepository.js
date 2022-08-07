@@ -3,8 +3,8 @@ import connection from "../databases/postgres.js"
 
 async function shortenUrlQuery (userId, url, shortUrl) {
     return connection.query(
-        'INSERT INTO urls ("userId", url, "shortUrl") VALUES ($1, $2, $3)',
-        [userId, url, shortUrl]
+        'INSERT INTO urls ("userId", "shortUrl", url) VALUES ($1, $2, $3)',
+        [userId, shortUrl, url]
     );
 }
 
@@ -24,7 +24,7 @@ async function openShortUrlQuery (shortUrl) {
 
 async function addToVisitsCountQuery (shortUrl) {
     return connection.query(
-        'UPDATE url SET visitCount = visitCount + 1 WHERE "shortUrl"=$1',
+        'UPDATE urls SET "visitCount" = "visitCount" + 1 WHERE "shortUrl"=$1',
         [shortUrl]
     );
 }

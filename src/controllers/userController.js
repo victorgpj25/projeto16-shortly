@@ -18,8 +18,7 @@ export async function getUserData (req, res) {
 }
 
 export async function getRanking (req, res) {
-
-    const {rows: rankingBody} = await userRepository.getRankingQuery(userId)
+    const {rows: rankingBody} = await userRepository.getRankingQuery()
 
     res.status(200).send(rankingBody)
 }

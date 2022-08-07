@@ -3,10 +3,11 @@ import connection from "../databases/postgres.js"
 
 async function getUserDataQuery (userId) {
     return connection.query(
-        `SELECT users.id, users.name, COUNT(urls.id) as "visitCount" 
+        `SELECT users.id, users.name, SUM(urls."visitCount") as "visitCount" 
         FROM users 
         JOIN urls ON urls."userId" = users.id 
-        WHERE users.id=$1`,
+        WHERE users.id=$1 
+        GROUP BY users.id, users.name`,
         [userId]
     );
 }
@@ -18,16 +19,14 @@ async function getUserUrlsQuery (userId) {
     );
 }
 
-async function getRankingQuery (userId) {
+async function getRankingQuery () {
     return connection.query(
-        `SELECT us.id, us.name, COUNT(urls.id) as "linksCount" , SUM(urls."visitCount") as "visitCount" 
+        `SELECT users.id, users.name, COUNT(urls.id) as "linksCount" , COALESCE(SUM(urls."visitCount"), 0) as "visitCount" 
         FROM users 
         LEFT JOIN urls ON urls."userId" = users.id 
-        WHERE users.id=$1 
-        GROUP BY urls."userId"
-        ORDER BY "visitCount" 
-        LIMIT 10`,
-        [userId]
+        GROUP BY users.id, users.name 
+        ORDER BY "visitCount" DESC 
+        LIMIT 10`
     );
 }
 
