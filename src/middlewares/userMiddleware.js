@@ -3,6 +3,7 @@ import {userRepository} from "../repositories/userRepository.js"
 
 export async function getUserDataMiddleware (req, res, next) {
     const userId = res.locals.userId
+    console.log(userId)
 
     const {rows: userExists} = await userRepository.getUserDataQuery(userId)
 
