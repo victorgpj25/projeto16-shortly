@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken"
 
 
 export async function signUpMiddleware(req, res, next) {
-    const { email } = req.body;
+    const { email, password, confirmPassword } = req.body;
 
     const { rows: emailAlreadyInUse } = await authRepository.checkEmailQuery(email)
 
@@ -18,6 +18,8 @@ export async function signUpMiddleware(req, res, next) {
     if (validation.error) {
         res.status(422).send({error: validation.error.details})
         return
+    } else if (password !== confirmPassword) {
+        res.status(422).send({error: "Senhas não coincidem"})
     }
 
     next();
